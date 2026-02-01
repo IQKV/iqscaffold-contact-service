@@ -5,8 +5,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-    <!-- Demo data migrations for development and testing -->
-    <include file="db/changelog/demo/20250121000000-demo-contact-records.xml"/>
-    <include file="db/changelog/demo/20250121000001-demo-contacts-and-activities.xml"/>
+    <!-- System-wide migrations (public schema) - executed first -->
+    <include file="db/changelog/system/master.xml"/>
+    
+    <!-- Tenant-specific migrations - executed per tenant schema -->
+    <include file="db/changelog/tenant/master.xml"/>
 
 </databaseChangeLog>
