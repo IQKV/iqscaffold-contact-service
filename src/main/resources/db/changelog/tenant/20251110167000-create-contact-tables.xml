@@ -61,6 +61,15 @@
             <column name="first_name"/>
             <column name="last_name"/>
         </createIndex>
+
+        <rollback>
+            <dropIndex tableName="contacts" indexName="idx_contacts_name"/>
+            <dropIndex tableName="contacts" indexName="idx_contacts_lead_score"/>
+            <dropIndex tableName="contacts" indexName="idx_contacts_status"/>
+            <dropIndex tableName="contacts" indexName="idx_contacts_company_id"/>
+            <dropIndex tableName="contacts" indexName="idx_contacts_email"/>
+            <dropTable tableName="contacts"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

@@ -72,6 +72,16 @@
                 referencedTableName="companies"
                 referencedColumnNames="id"
                 constraintName="fk_contacts_company"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="contacts" constraintName="fk_contacts_company"/>
+            <dropForeignKeyConstraint baseTableName="companies" constraintName="fk_companies_parent_company"/>
+            <dropIndex tableName="companies" indexName="idx_companies_parent"/>
+            <dropIndex tableName="companies" indexName="idx_companies_status"/>
+            <dropIndex tableName="companies" indexName="idx_companies_industry"/>
+            <dropIndex tableName="companies" indexName="idx_companies_name"/>
+            <dropTable tableName="companies"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

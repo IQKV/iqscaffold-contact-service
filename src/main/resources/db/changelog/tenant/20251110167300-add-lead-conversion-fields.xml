@@ -27,6 +27,13 @@
         <createIndex tableName="contacts" indexName="idx_contacts_converted_at">
             <column name="converted_at"/>
         </createIndex>
+
+        <rollback>
+            <dropIndex tableName="contacts" indexName="idx_contacts_converted_at"/>
+            <dropIndex tableName="contacts" indexName="idx_contacts_converted_from_lead_id"/>
+            <dropColumn tableName="contacts" columnName="converted_at"/>
+            <dropColumn tableName="contacts" columnName="converted_from_lead_id"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

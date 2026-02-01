@@ -81,6 +81,18 @@
                 referencedTableName="companies"
                 referencedColumnNames="id"
                 constraintName="fk_activities_company"/>
+
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="activities" constraintName="fk_activities_company"/>
+            <dropForeignKeyConstraint baseTableName="activities" constraintName="fk_activities_contact"/>
+            <dropIndex tableName="activities" indexName="idx_activities_assigned_to"/>
+            <dropIndex tableName="activities" indexName="idx_activities_due_date"/>
+            <dropIndex tableName="activities" indexName="idx_activities_status"/>
+            <dropIndex tableName="activities" indexName="idx_activities_type"/>
+            <dropIndex tableName="activities" indexName="idx_activities_company_id"/>
+            <dropIndex tableName="activities" indexName="idx_activities_contact_id"/>
+            <dropTable tableName="activities"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

@@ -52,6 +52,12 @@
         <createIndex tableName="webhooks" indexName="idx_webhooks_events">
             <column name="events"/>
         </createIndex>
+
+        <rollback>
+            <dropIndex tableName="webhooks" indexName="idx_webhooks_events"/>
+            <dropIndex tableName="webhooks" indexName="idx_webhooks_active"/>
+            <dropTable tableName="webhooks"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>
