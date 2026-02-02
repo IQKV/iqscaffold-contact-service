@@ -284,7 +284,7 @@ IQSCAFFOLD_MESSAGING_RABBITMQ_USERNAME=iqscaffold
 IQSCAFFOLD_MESSAGING_RABBITMQ_PASSWORD=iqscaffold_password
 
 # Security
-USER_SERVICE_URL=http://user-service:8080
+USER_SERVICE_URL=http://iqscaffold-user-service:8080
 JWT_ISSUER=iqscaffold-user-service
 
 # CRM Features

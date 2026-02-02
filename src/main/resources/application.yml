@@ -125,8 +125,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${IQSCAFFOLD_USER_SERVICE_URL:http://user-service:8080}/.well-known/jwks.json
-          issuer-uri: ${IQSCAFFOLD_USER_SERVICE_URL:http://user-service:8080}
+          jwk-set-uri: ${IQSCAFFOLD_USER_SERVICE_URL:http://iqscaffold-user-service:8080}/.well-known/jwks.json
+          issuer-uri: ${IQSCAFFOLD_USER_SERVICE_URL:http://iqscaffold-user-service:8080}
 
 # SpringDoc OpenAPI Configuration
 springdoc:
@@ -221,7 +221,7 @@ iqscaffold:
   tenant-id-header: X-Tenant-ID
   
   # User Service URL for inter-service communication
-  user-service-url: ${USER_SERVICE_URL:http://user-service:8080}
+  user-service-url: ${USER_SERVICE_URL:http://iqscaffold-user-service:8080}
   
   # Internationalization configuration
   i18n:
@@ -244,7 +244,7 @@ iqscaffold:
   crm:
     security:
       jwt:
-        jwk-set-uri: ${IQSCAFFOLD_USER_SERVICE_URL:http://user-service:8080}/.well-known/jwks.json
+        jwk-set-uri: ${IQSCAFFOLD_USER_SERVICE_URL:http://iqscaffold-user-service:8080}/.well-known/jwks.json
         issuer: ${JWT_ISSUER:iqscaffold-user-service}
     contact:
       enable-lead-scoring: ${CRM_ENABLE_LEAD_SCORING:true}
