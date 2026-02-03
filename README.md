@@ -1,21 +1,110 @@
-# IQ Scaffold Contact Service
+# 👥 IQ Scaffold Contact Service
 
-A comprehensive CRM contact management service built with Spring Boot, providing multi-tenant contact management capabilities with lead scoring and conversion tracking.
+> Comprehensive CRM contact management microservice providing multi-tenant contact lifecycle management, lead conversion tracking, bulk operations, and intelligent contact scoring with event-driven integration.
 
-## Features
+## Table of Contents
 
-- **Contact Management**: Complete REST API for contact CRUD operations with lead scoring
-- **Bulk Operations**: Efficient bulk create, update status, delete, and update lead scores (max 100 per request)
-- **Lead Conversion**: Track contacts converted from leads with conversion timestamps
-- **Event Publishing**: RabbitMQ events for contact lifecycle (created, updated, deleted)
-- **Multi-tenancy**: Schema-per-tenant isolation with automatic tenant context resolution
-- **Internationalization**: Support for English, Spanish, and French
-- **Security**: JWT-based authentication and authorization with tenant extraction
-- **Caching**: Hibernate second-level caching with Ehcache
-- **Observability**: Metrics, tracing, and health checks with Micrometer and OpenTelemetry
-- **API Documentation**: OpenAPI/Swagger integration
+- [Business Purpose](#business-purpose)
+- [Overview](#overview)
+- [What It Demonstrates](#what-it-demonstrates)
+- [Architecture Patterns](#architecture-patterns)
+- [Technical Highlights](#technical-highlights)
+- [Use Cases Implemented](#use-cases-implemented)
+- [API Endpoints](#api-endpoints)
+- [API Examples](#api-examples)
+- [Learning Points](#learning-points)
+- [Adapting for Your Domain](#adapting-for-your-domain)
+- [Integration with Other Services](#integration-with-other-services)
+- [Deployment Guide](docs/deployment/README.md)
 
-## Technology Stack
+## Business Purpose
+
+A comprehensive contact management service that handles:
+
+- **Contact Lifecycle Management** - Complete CRUD operations for contact management with lead scoring and conversion tracking
+- **Lead Conversion Tracking** - Seamless conversion of qualified leads to contacts with complete audit trail and timestamps
+- **Bulk Operations** - Efficient bulk processing for contact creation, updates, and deletions (up to 100 items per request)
+- **Contact Scoring** - Lead scoring system integration for contact qualification and prioritization
+- **Event-Driven Integration** - RabbitMQ-based event publishing for contact lifecycle events and cross-service communication
+- **Multi-Tenancy** - Complete tenant isolation ensuring data segregation across organizations with schema-per-tenant strategy
+- **Contact Search & Filtering** - Advanced search capabilities with pagination and status-based filtering
+
+## Overview
+
+This is the contact management hub for the IQ Scaffold CRM platform. It centralizes contact data management, enabling sales teams to maintain comprehensive customer records, track lead conversions, and manage contact relationships efficiently while providing event-driven integration with other CRM services.
+
+## What It Demonstrates
+
+### 👥 Contact Management & Lifecycle
+
+- Complete contact CRUD operations with comprehensive data model
+- Lead conversion tracking with timestamps and source attribution
+- Contact status management (ACTIVE, INACTIVE, LEAD, PROSPECT, CUSTOMER, ARCHIVED)
+- Company association and relationship management
+- Advanced search and filtering capabilities with pagination
+- Bulk operations for efficient data management (max 100 items per request)
+
+### 📊 Lead Scoring & Analytics
+
+- Integrated lead scoring system (0-100) for contact qualification
+- Conversion tracking from leads to contacts with complete audit trail
+- Score-based contact prioritization and segmentation
+
+### 🔄 Event-Driven Architecture
+
+- RabbitMQ event publishing for contact lifecycle (created, updated, deleted)
+- Event-driven integration with Lead Service and Pipeline Service
+- Asynchronous processing for improved performance and scalability
+- Event sourcing patterns for audit trail and data consistency
+
+## Architecture Patterns
+
+### Key Design Patterns
+
+- Repository pattern for data access with custom queries
+- Service layer for business logic and event publishing
+- DTO pattern with Java records for API contracts
+- Event-driven architecture with RabbitMQ integration
+- Bulk operation patterns for efficient data processing
+- Multi-tenant context management with schema isolation
+
+### API Design
+
+- RESTful endpoints with proper HTTP methods and status codes
+- Versioning support (URL-based: `/api/v1/`)
+- OpenAPI/Swagger documentation with comprehensive examples
+- Bulk operation endpoints with detailed success/failure reporting
+- Consistent error response format with Problem Details (RFC 7807)
+- Pagination and sorting support for list operations
+
+## Technical Highlights
+
+### Contact Management Features
+
+- Comprehensive contact data model with lead scoring integration
+- Lead conversion tracking with source attribution and timestamps
+- Contact status lifecycle management with business rules
+- Company association and relationship management
+- Advanced search capabilities (first name, last name, email matching)
+- Bulk operations with atomic success/failure reporting (max 100 items)
+
+### Performance Optimization
+
+- Hibernate second-level caching with Ehcache for improved query performance
+- Efficient bulk operations with batch processing
+- Optimized database queries with proper indexing
+- Connection pooling for database connections
+- Async event publishing for non-blocking operations
+
+### Data Management
+
+- Liquibase for database migrations with tenant-specific schemas
+- PostgreSQL with proper indexing and constraints
+- Transaction management with rollback support
+- Audit fields for tracking creation and modification
+- Soft deletes for maintaining data integrity
+
+### Technology Stack
 
 - **Framework**: Spring Boot 3.5.7
 - **Java**: 21
@@ -27,27 +116,37 @@ A comprehensive CRM contact management service built with Spring Boot, providing
 - **Observability**: Micrometer, OpenTelemetry, Prometheus
 - **Testing**: JUnit 5, Mockito, H2 (test), Testcontainers, ArchUnit
 
-## Quick Start
+### Quick Start
 
-### Prerequisites
+#### Prerequisites
 
 - Java 21+
 - Docker and Docker Compose
 - Maven 3.9+
 
-### Local Development
+#### Local Development
 
 1. **Start infrastructure services**:
+
+   <details>
+   <summary>Click to expand bash commands</summary>
 
    ```bash
    docker-compose up -d postgres-contact redis-contact rabbitmq-contact
    ```
 
+   </details>
+
 2. **Run the application**:
+
+   <details>
+   <summary>Click to expand bash commands</summary>
 
    ```bash
    mvn spring-boot:run -Dspring-boot.run.profiles=local
    ```
+
+   </details>
 
 3. **Access the application**:
    - API: http://localhost:8080
@@ -56,7 +155,10 @@ A comprehensive CRM contact management service built with Spring Boot, providing
    - Health Check: http://localhost:8080/actuator/health
    - Prometheus Metrics: http://localhost:8080/actuator/prometheus
 
-### Docker Development
+#### Docker Development
+
+<details>
+<summary>Click to expand bash commands</summary>
 
 ```bash
 # Build and run all services
@@ -66,7 +168,236 @@ docker-compose up --build
 docker-compose up -d
 ```
 
+</details>
+
+### Configuration
+
+#### Environment Variables
+
+Key environment variables for configuration:
+
+<details>
+<summary>Click to expand environment variables</summary>
+
+```bash
+# Database
+IQSCAFFOLD_DATABASE_URL=jdbc:postgresql://localhost:5434/iqscaffold_contact_local
+IQSCAFFOLD_DATABASE_USERNAME=iqscaffold_contact
+IQSCAFFOLD_DATABASE_PASSWORD=iqscaffold_password
+
+# RabbitMQ
+IQSCAFFOLD_MESSAGING_RABBITMQ_HOST=localhost
+IQSCAFFOLD_MESSAGING_RABBITMQ_PORT=5673
+IQSCAFFOLD_MESSAGING_RABBITMQ_USERNAME=iqscaffold
+IQSCAFFOLD_MESSAGING_RABBITMQ_PASSWORD=iqscaffold_password
+
+# Security
+USER_SERVICE_URL=http://iqscaffold-user-service:8080
+JWT_ISSUER=iqscaffold-user-service
+
+# CRM Features
+CRM_ENABLE_LEAD_SCORING=true
+CRM_ENABLE_ACTIVITY_TRACKING=true
+CRM_ENABLE_EMAIL_INTEGRATION=true
+```
+
+</details>
+
+#### Profiles
+
+- `local` - Local development with debug logging
+- `staging` - Staging environment configuration
+- `production` - Production environment with JSON logging
+
+### Multi-tenancy
+
+The service uses schema-per-tenant isolation:
+
+1. **Tenant Identification**: Via `X-Tenant-ID` header
+2. **Schema Management**: Automatic schema creation and migration
+3. **Data Isolation**: Complete separation between tenants
+
+### Database Schema
+
+#### System Schema (public)
+
+- `tenant_info` - Tenant metadata and schema mapping (managed by user service)
+
+#### Tenant Schemas
+
+Each tenant has its own schema with:
+
+- `contacts` - Contact information with lead scoring and conversion tracking
+  - Basic info: first name, last name, email, phone, job title
+  - Lead scoring: lead_score field for qualification
+  - Conversion tracking: converted_from_lead_id, converted_at
+  - Company association: company_id reference
+  - Status tracking: ACTIVE, INACTIVE, LEAD, PROSPECT, CUSTOMER, ARCHIVED
+  - Audit fields: created_at, updated_at, created_by, updated_by
+
+### Development
+
+#### Running Tests
+
+<details>
+<summary>Click to expand bash commands</summary>
+
+```bash
+# Unit tests
+mvn test
+
+# Integration tests (requires Docker for Testcontainers)
+mvn verify
+
+# With coverage report
+mvn clean test jacoco:report
+
+# View coverage report
+open target/site/jacoco/index.html
+```
+
+</details>
+
+#### Test Configuration
+
+- **Unit Tests**: Use H2 in-memory database
+- **Integration Tests**: Disabled by default (require tenant schema setup)
+- **Cache**: Disabled in tests to avoid ehcache.xml dependency
+- **Coverage**: 70% minimum instruction coverage, 50% branch coverage
+
+#### Code Quality
+
+The project enforces:
+
+- **Checkstyle**: Google Java Style Guide compliance
+- **JaCoCo**: 70% instruction coverage, 50% branch coverage minimum
+- **ArchUnit**: Architecture rules and layer dependencies
+- **Maven Enforcer**: Java 21+ and Maven 3.9+ requirements
+
+#### Adding New Features
+
+1. Create feature branch from `main`
+2. Implement feature with tests
+3. Update documentation
+4. Submit pull request
+
+### Monitoring
+
+#### Health Checks
+
+- Liveness: `/actuator/health/liveness`
+- Readiness: `/actuator/health/readiness`
+
+#### Metrics
+
+- Prometheus: `/actuator/prometheus`
+- Application metrics: `/actuator/metrics`
+
+#### Tracing
+
+- OpenTelemetry integration
+- Distributed tracing support
+
+### Troubleshooting
+
+#### Common Issues
+
+1. **Database Connection**: Verify PostgreSQL is running on port 5434 and credentials are correct
+2. **RabbitMQ Connection**: Check RabbitMQ service on port 5673 and credentials
+3. **JWT Validation**: Ensure user service is accessible at configured URL
+4. **Tenant Context**: Verify `X-Tenant-ID` header is present in requests
+5. **Cache Issues**: In tests, cache is disabled; in production, ensure Ehcache configuration is valid
+
+#### Logs
+
+<details>
+<summary>Click to expand bash commands</summary>
+
+```bash
+# View application logs
+docker-compose logs contact-service
+
+# Follow logs
+docker-compose logs -f contact-service
+```
+
+</details>
+- PostgreSQL with proper indexing and constraints
+- Transaction management with rollback support
+- Audit fields for tracking creation and modification
+- Soft deletes for maintaining data integrity
+
+### Event-Driven Integration
+
+- RabbitMQ event publishing for contact lifecycle events
+- Event consumers in Lead Service and Pipeline Service
+- Structured event payloads with metadata and context
+- Event-driven lead conversion workflow
+- Cross-service communication patterns
+
+### Multi-Tenancy Implementation
+
+- Schema-per-tenant isolation with automatic context resolution
+- Tenant context extraction from JWT tokens and headers
+- Tenant-scoped repositories and queries
+- Cross-tenant data isolation and security
+- Tenant-aware event publishing
+
+### Testing Approach
+
+- Unit tests with JUnit 5 and Mockito
+- Integration tests with H2 in-memory database
+- Architecture tests with ArchUnit for layer validation
+- Code coverage with JaCoCo (70% instruction, 50% branch minimum)
+- Testcontainers for integration testing (when enabled)
+
+### Operational Features
+
+- Docker containerization with multi-stage builds
+- Environment-specific profiles (local, staging, production)
+- Structured JSON logging with correlation IDs
+- Health checks and actuator endpoints
+- Prometheus metrics integration
+- OpenTelemetry distributed tracing
+
+## Use Cases Implemented
+
+### Contact Management
+
+- Create new contacts with comprehensive data validation
+- Update existing contact information with audit tracking
+- Delete contacts with proper cleanup and event publishing
+- Search contacts by name, email, or other criteria
+- Filter contacts by status, company, or other attributes
+- Paginated contact listing with sorting options
+
+### Lead Conversion Workflow
+
+- Convert qualified leads to contacts via Lead Service integration
+- Track conversion source and timestamp for analytics
+- Maintain lead-to-contact relationship mapping
+- Publish conversion events for downstream processing
+- Update lead status upon successful conversion
+
+### Bulk Operations
+
+- Bulk contact creation with validation and error reporting
+- Bulk status updates for contact lifecycle management
+- Bulk contact deletion with proper cleanup
+- Bulk lead score updates for qualification management
+- Detailed success/failure reporting for each operation
+
+### Event-Driven Integration
+
+- Publish contact lifecycle events (created, updated, deleted)
+- Enable Lead Service to track conversion success
+- Trigger Pipeline Service updates for won opportunities
+- Support audit trail and compliance requirements
+
 ## API Endpoints
+
+<details>
+<summary>Click to expand API endpoints</summary>
 
 ### Contacts
 
@@ -99,11 +430,92 @@ docker-compose up -d
 - `size` - Page size (default: 20)
 - `sort` - Sort field and direction (e.g., `lastName,asc`)
 
+</details>
+
+## API Examples
+
+### Contact Management Endpoints
+
+#### Create Contact
+
+- `POST /api/v1/contacts` - Create new contact
+
+**Request:**
+
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "+1234567890",
+  "jobTitle": "Software Engineer",
+  "companyId": 123,
+  "status": "ACTIVE",
+  "leadScore": 85,
+  "convertedFromLeadId": "lead-456"
+}
+```
+
+**Response (201 Created):**
+
+```json
+{
+  "id": 1,
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "+1234567890",
+  "jobTitle": "Software Engineer",
+  "companyId": 123,
+  "status": "ACTIVE",
+  "leadScore": 85,
+  "convertedFromLeadId": "lead-456",
+  "convertedAt": "2026-02-03T10:30:00Z",
+  "createdAt": "2026-02-03T10:30:00Z",
+  "updatedAt": "2026-02-03T10:30:00Z"
+}
+```
+
+#### List Contacts with Search and Filtering
+
+- `GET /api/v1/contacts?search=john&status=ACTIVE&page=0&size=20&sort=lastName,asc`
+
+**Response (200 OK):**
+
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "status": "ACTIVE",
+      "leadScore": 85
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 20,
+    "sort": {
+      "sorted": true,
+      "orders": [{ "property": "lastName", "direction": "ASC" }]
+    }
+  },
+  "totalElements": 1,
+  "totalPages": 1,
+  "first": true,
+  "last": true
+}
+```
+
 ### Bulk Operations
 
-All bulk operations support up to 100 items per request and return a detailed response with success/failure status for each item.
+#### Bulk Create Contacts
 
-**Bulk Create (`POST /api/v1/contacts/bulk`):**
+- `POST /api/v1/contacts/bulk` - Create multiple contacts
+
+**Request:**
 
 ```json
 {
@@ -112,14 +524,60 @@ All bulk operations support up to 100 items per request and return a detailed re
       "firstName": "John",
       "lastName": "Doe",
       "email": "john.doe@example.com",
-      "phone": "+1234567890",
       "status": "ACTIVE"
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "status": "PROSPECT"
     }
   ]
 }
 ```
 
-**Bulk Update Status (`PATCH /api/v1/contacts/bulk/status`):**
+**Response (200 OK):**
+
+```json
+{
+  "successCount": 2,
+  "failureCount": 0,
+  "results": [
+    {
+      "contactId": 1,
+      "email": "john.doe@example.com",
+      "success": true,
+      "message": "Contact created successfully",
+      "contact": {
+        "id": 1,
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@example.com",
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "contactId": 2,
+      "email": "jane.smith@example.com",
+      "success": true,
+      "message": "Contact created successfully",
+      "contact": {
+        "id": 2,
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "email": "jane.smith@example.com",
+        "status": "PROSPECT"
+      }
+    }
+  ]
+}
+```
+
+#### Bulk Update Contact Status
+
+- `PATCH /api/v1/contacts/bulk/status` - Update status for multiple contacts
+
+**Request:**
 
 ```json
 {
@@ -128,289 +586,162 @@ All bulk operations support up to 100 items per request and return a detailed re
 }
 ```
 
-**Bulk Delete (`DELETE /api/v1/contacts/bulk`):**
+#### Bulk Update Lead Scores
 
-```json
-{
-  "contactIds": [1, 2, 3]
-}
-```
+- `PATCH /api/v1/contacts/bulk/scores` - Update lead scores for multiple contacts
 
-**Bulk Update Lead Scores (`PATCH /api/v1/contacts/bulk/scores`):**
+**Request:**
 
 ```json
 {
   "updates": [
     { "contactId": 1, "score": 85 },
-    { "contactId": 2, "score": 90 }
+    { "contactId": 2, "score": 90 },
+    { "contactId": 3, "score": 75 }
   ]
 }
 ```
 
-**Bulk Operation Response:**
+### Event Publishing Examples
+
+#### Contact Created Event
+
+Published to RabbitMQ exchange `crm.events` with routing key `contact.created`:
 
 ```json
 {
-  "successCount": 2,
-  "failureCount": 1,
-  "results": [
-    {
-      "contactId": 1,
-      "email": "john.doe@example.com",
-      "success": true,
-      "message": "Contact created successfully",
-      "contact": { ... }
-    },
-    {
-      "contactId": null,
-      "email": "duplicate@example.com",
-      "success": false,
-      "message": "Contact with email already exists",
-      "contact": null
-    }
-  ]
+  "eventId": "550e8400-e29b-41d4-a716-446655440000",
+  "eventType": "contact.created",
+  "timestamp": "2026-02-03T10:30:00Z",
+  "tenantId": "tenant-123",
+  "userId": "user-456",
+  "contactId": "1",
+  "metadata": {
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "status": "ACTIVE",
+    "convertedFromLeadId": "lead-789"
+  }
 }
 ```
 
-### Event Publishing
+### Monitoring Endpoints
 
-The service publishes RabbitMQ events for contact lifecycle operations:
+- `/actuator/health` - Health status with database and RabbitMQ checks
+- `/actuator/metrics` - Application metrics including contact operations
+- `/actuator/prometheus` - Prometheus-formatted metrics
+- `/swagger-ui.html` - Interactive API documentation
+- `/api-docs` - OpenAPI specification
 
-**Exchange:** `crm.events` (topic)
+## Learning Points
 
-**Events Published:**
+This implementation serves as a reference for:
 
-1. **contact.created** - When a new contact is created
+- Building contact management systems with comprehensive data models
+- Implementing bulk operations with detailed success/failure reporting
+- Designing event-driven architectures with RabbitMQ integration
+- Multi-tenant data isolation with schema-per-tenant patterns
+- Lead conversion tracking and CRM workflow integration
+- Performance optimization with caching and bulk processing
+- Comprehensive testing strategies for microservices
 
-   ```json
-   {
-     "eventId": "uuid",
-     "eventType": "contact.created",
-     "timestamp": "2026-01-15T10:30:00Z",
-     "tenantId": "tenant-123",
-     "userId": "user-456",
-     "contactId": "contact-789",
-     "metadata": {
-       "firstName": "John",
-       "lastName": "Doe",
-       "email": "john.doe@example.com",
-       "status": "ACTIVE",
-       "convertedFromLeadId": "lead-123"
-     }
-   }
-   ```
+## Adapting for Your Domain
 
-2. **contact.updated** - When a contact is updated
+This contact management service demonstrates patterns applicable to various scenarios:
 
-   ```json
-   {
-     "eventId": "uuid",
-     "eventType": "contact.updated",
-     "timestamp": "2026-01-15T10:35:00Z",
-     "tenantId": "tenant-123",
-     "userId": "user-456",
-     "contactId": "contact-789",
-     "metadata": {
-       "firstName": "John",
-       "lastName": "Doe",
-       "email": "john.doe@example.com",
-       "status": "CUSTOMER"
-     }
-   }
-   ```
+### Customer Relationship Management
 
-3. **contact.deleted** - When a contact is deleted
-   ```json
-   {
-     "eventId": "uuid",
-     "eventType": "contact.deleted",
-     "timestamp": "2026-01-15T10:40:00Z",
-     "tenantId": "tenant-123",
-     "userId": "user-456",
-     "contactId": "contact-789",
-     "metadata": {}
-   }
-   ```
+- Customer contact databases
+- Lead conversion tracking systems
+- Sales pipeline management
+- Customer lifecycle management
 
-**Event Consumers:**
+### Event-Driven Architectures
 
-- Lead Service listens to `contact.created` events to update lead conversion tracking
-- Pipeline Service listens to `contact.created` events to move pipeline items to "Won" stage
+- Cross-service communication patterns
+- Event sourcing for audit trails
+- Asynchronous processing workflows
+- Service integration patterns
 
-### Integration with Other Services
+### Bulk Processing Systems
 
-**Lead Service Integration:**
+- Batch data import/export operations
+- Mass update operations with reporting
+- Data migration and synchronization
+- ETL pipeline integration
 
-- Contacts can be created from lead conversions via `POST /api/v1/leads/{id}/convert`
-- Lead Service calls Contact Service REST API to create contact
-- Contact Service publishes `contact.created` event with `convertedFromLeadId`
-- Lead Service consumes event to update lead status and log activity
+### Multi-Tenant Applications
 
-**Pipeline Service Integration:**
+- Schema-per-tenant isolation
+- Tenant context management
+- Cross-tenant data security
+- Tenant-aware event publishing
 
-- Pipeline Service listens to `contact.created` events
-- When contact is created from lead, pipeline item moves to "Won" stage
-- Conversion timestamp is recorded on pipeline item
+The patterns demonstrated here apply to any domain requiring comprehensive contact management, event-driven integration, bulk operations, and multi-tenant data isolation.
 
-### Current Implementation
+## Integration with Other Services
 
-The service provides complete REST API functionality:
+### Lead Service Integration
 
-- **REST Endpoints**: Full CRUD operations with search and filtering
-- **Domain Model**: Contact entity with lead scoring and conversion tracking
-- **Repository Layer**: JPA repository with custom queries
-- **Service Layer**: Business logic for contact management operations
-- **Event Publishing**: RabbitMQ events for contact lifecycle (created, updated, deleted)
-- **Event Consumers**: Lead Service and Pipeline Service consume contact events
-- **Multi-tenancy**: Schema-per-tenant with automatic context resolution
-- **Security**: JWT authentication and tenant extraction filters
+The Contact Service integrates with the Lead Service for lead conversion workflows:
 
-## Configuration
+**Lead Conversion Flow:**
 
-### Environment Variables
+1. Lead Service calls `POST /api/v1/contacts` with lead data
+2. Contact Service creates contact and publishes `contact.created` event
+3. Lead Service consumes event and updates lead status to `CONVERTED`
+4. Pipeline Service consumes event and moves opportunity to "Won" stage
 
-Key environment variables for configuration:
+**Event Consumption:**
+Lead Service listens for contact events to maintain conversion tracking:
 
-```bash
-# Database
-IQSCAFFOLD_DATABASE_URL=jdbc:postgresql://localhost:5434/iqscaffold_contact_local
-IQSCAFFOLD_DATABASE_USERNAME=iqscaffold_contact
-IQSCAFFOLD_DATABASE_PASSWORD=iqscaffold_password
-
-# RabbitMQ
-IQSCAFFOLD_MESSAGING_RABBITMQ_HOST=localhost
-IQSCAFFOLD_MESSAGING_RABBITMQ_PORT=5673
-IQSCAFFOLD_MESSAGING_RABBITMQ_USERNAME=iqscaffold
-IQSCAFFOLD_MESSAGING_RABBITMQ_PASSWORD=iqscaffold_password
-
-# Security
-USER_SERVICE_URL=http://iqscaffold-user-service:8080
-JWT_ISSUER=iqscaffold-user-service
-
-# CRM Features
-CRM_ENABLE_LEAD_SCORING=true
-CRM_ENABLE_ACTIVITY_TRACKING=true
-CRM_ENABLE_EMAIL_INTEGRATION=true
+```java
+@RabbitListener(queues = "lead.service.contact.events")
+public void handleContactCreated(ContactCreatedEvent event) {
+  if (event.getMetadata().getConvertedFromLeadId() != null) {
+    leadService.markAsConverted(event.getMetadata().getConvertedFromLeadId(), event.getContactId(), event.getTimestamp());
+  }
+}
 ```
 
-### Profiles
+### Pipeline Service Integration
 
-- `local` - Local development with debug logging
-- `staging` - Staging environment configuration
-- `production` - Production environment with JSON logging
+Pipeline Service consumes contact events for opportunity management:
 
-## Multi-tenancy
-
-The service uses schema-per-tenant isolation:
-
-1. **Tenant Identification**: Via `X-Tenant-ID` header
-2. **Schema Management**: Automatic schema creation and migration
-3. **Data Isolation**: Complete separation between tenants
-
-## Database Schema
-
-### System Schema (public)
-
-- `tenant_info` - Tenant metadata and schema mapping (managed by user service)
-
-### Tenant Schemas
-
-Each tenant has its own schema with:
-
-- `contacts` - Contact information with lead scoring and conversion tracking
-  - Basic info: first name, last name, email, phone, job title
-  - Lead scoring: lead_score field for qualification
-  - Conversion tracking: converted_from_lead_id, converted_at
-  - Company association: company_id reference
-  - Status tracking: ACTIVE, INACTIVE, LEAD, PROSPECT, CUSTOMER, ARCHIVED
-  - Audit fields: created_at, updated_at, created_by, updated_by
-
-## Development
-
-### Running Tests
-
-```bash
-# Unit tests
-mvn test
-
-# Integration tests (requires Docker for Testcontainers)
-mvn verify
-
-# With coverage report
-mvn clean test jacoco:report
-
-# View coverage report
-open target/site/jacoco/index.html
+```java
+@RabbitListener(queues = "pipeline.service.contact.events")
+public void handleContactCreated(ContactCreatedEvent event) {
+  if (event.getMetadata().getConvertedFromLeadId() != null) {
+    pipelineService.markOpportunityAsWon(event.getMetadata().getConvertedFromLeadId(), event.getContactId(), event.getTimestamp());
+  }
+}
 ```
 
-### Test Configuration
+### User Service Integration
 
-- **Unit Tests**: Use H2 in-memory database
-- **Integration Tests**: Disabled by default (require tenant schema setup)
-- **Cache**: Disabled in tests to avoid ehcache.xml dependency
-- **Coverage**: 70% minimum instruction coverage, 50% branch coverage
+Contact Service validates JWT tokens and extracts tenant context:
 
-### Code Quality
-
-The project enforces:
-
-- **Checkstyle**: Google Java Style Guide compliance
-- **JaCoCo**: 70% instruction coverage, 50% branch coverage minimum
-- **ArchUnit**: Architecture rules and layer dependencies
-- **Maven Enforcer**: Java 21+ and Maven 3.9+ requirements
-
-### Adding New Features
-
-1. Create feature branch from `main`
-2. Implement feature with tests
-3. Update documentation
-4. Submit pull request
-
-## Monitoring
-
-### Health Checks
-
-- Liveness: `/actuator/health/liveness`
-- Readiness: `/actuator/health/readiness`
-
-### Metrics
-
-- Prometheus: `/actuator/prometheus`
-- Application metrics: `/actuator/metrics`
-
-### Tracing
-
-- OpenTelemetry integration
-- Distributed tracing support
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Database Connection**: Verify PostgreSQL is running on port 5434 and credentials are correct
-2. **RabbitMQ Connection**: Check RabbitMQ service on port 5673 and credentials
-3. **JWT Validation**: Ensure user service is accessible at configured URL
-4. **Tenant Context**: Verify `X-Tenant-ID` header is present in requests
-5. **Cache Issues**: In tests, cache is disabled; in production, ensure Ehcache configuration is valid
-
-### Logs
-
-```bash
-# View application logs
-docker-compose logs contact-service
-
-# Follow logs
-docker-compose logs -f contact-service
+```yaml
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://iqscaffold-user-service:8080/api/v1/auth/.well-known/jwks.json
 ```
 
-## Contributing
+Extract user and tenant context from JWT:
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
+```java
+@GetMapping("/contacts")
+public ResponseEntity<Page<ContactDto>> getContacts(Authentication auth, @RequestHeader("X-Tenant-ID") String tenantId, Pageable pageable) {
+  // Tenant context automatically resolved
+  // User context available from JWT claims
+  return ResponseEntity.ok(contactService.findAll(pageable));
+}
+```
 
-## License
+---
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+**Use this as a blueprint** for building contact management services and implementing event-driven CRM systems in your microservices architecture. The code demonstrates production-ready patterns for contact lifecycle management, bulk operations, and cross-service integration.
