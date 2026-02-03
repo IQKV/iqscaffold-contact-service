@@ -397,7 +397,7 @@ Sensitive credentials are managed through Kubernetes Secrets:
 kubectl create secret generic iqscaffold-contact-service-secrets \
   --from-literal=database-password="$DB_PASSWORD" \
   --from-literal=redis-password="$REDIS_PASSWORD" \
-  --from-literal=messaging-password="$RABBITMQ_PASSWORD" \
+  --from-literal=rabbitmq-password="$RABBITMQ_PASSWORD" \
   --namespace=<target-namespace>
 
 # Or use Helm --set flags (recommended for CI/CD)
