@@ -19,7 +19,7 @@
 
 ## Business Purpose
 
-A comprehensive contact management service that handles:
+CRM Contact management service that handles:
 
 - **Contact Lifecycle Management** - Complete CRUD operations for contact management with lead scoring and conversion tracking
 - **Lead Conversion Tracking** - Seamless conversion of qualified leads to contacts with complete audit trail and timestamps
