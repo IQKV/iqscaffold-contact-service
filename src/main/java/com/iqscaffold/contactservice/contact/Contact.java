@@ -1,7 +1,5 @@
 package com.iqscaffold.contactservice.contact;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,6 +16,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 import com.iqscaffold.contactservice.company.Company;
 import org.hibernate.annotations.Cache;
