@@ -1,5 +1,7 @@
 package com.iqscaffold.contactservice.contact;
 
+import java.time.LocalDateTime;
+import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,8 +18,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 import com.iqscaffold.contactservice.company.Company;
 import org.hibernate.annotations.Cache;
@@ -29,12 +29,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name = "contacts")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @NamedEntityGraphs({
-  @NamedEntityGraph(
-    name = "contact-with-company",
-    attributeNodes = {
-      @jakarta.persistence.NamedAttributeNode("company")
-    }
-  )
+    @NamedEntityGraph(
+        name = "contact-with-company",
+        attributeNodes = {
+            @jakarta.persistence.NamedAttributeNode("company")
+        }
+    )
 })
 public class Contact {
 

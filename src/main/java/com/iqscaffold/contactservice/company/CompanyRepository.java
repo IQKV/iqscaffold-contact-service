@@ -96,7 +96,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
    * Find companies by status with contacts loaded.
    * Use this when filtering companies and need contact information.
    *
-   * @param status the company status
+   * @param status   the company status
    * @param pageable pagination information
    * @return Page of companies with contacts loaded
    */
@@ -120,7 +120,7 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
    * Search companies by name with contacts loaded.
    * Use this when searching companies and need contact information.
    *
-   * @param name the company name search term
+   * @param name     the company name search term
    * @param pageable pagination information
    * @return Page of companies with contacts loaded
    */

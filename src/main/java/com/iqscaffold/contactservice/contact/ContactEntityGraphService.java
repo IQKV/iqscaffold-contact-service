@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service demonstrating optimal usage of entity graphs for Contact operations.
- * 
+ *
  * <p>This service showcases how to leverage entity graphs to optimize query performance
  * for contact-related operations by eagerly loading specific relationships based
  * on business requirements.
@@ -70,7 +70,7 @@ public class ContactEntityGraphService {
    * Find contacts by status with company details loaded.
    * Use this when filtering contacts by status and displaying company information.
    *
-   * @param status the contact status
+   * @param status   the contact status
    * @param pageable pagination information
    * @return Page of contacts with company details loaded
    */
@@ -83,7 +83,7 @@ public class ContactEntityGraphService {
    * Use this when performing contact search and displaying company information.
    *
    * @param searchTerm the search term
-   * @param pageable pagination information
+   * @param pageable   pagination information
    * @return Page of contacts with company details loaded
    */
   public Page<Contact> searchContactsWithCompany(final String searchTerm, final Pageable pageable) {
@@ -198,18 +198,18 @@ public class ContactEntityGraphService {
    */
   public ContactCompanyStats getContactStatsForCompany(final Long companyId) {
     var contacts = contactRepository.findByCompanyIdWithCompany(companyId);
-    
+
     if (contacts.isEmpty()) {
       return null;
     }
 
     var firstContact = contacts.get(0);
     var company = firstContact.getCompany();
-    
+
     var activeCount = contacts.stream()
         .mapToInt(c -> c.getStatus() == ContactStatus.ACTIVE ? 1 : 0)
         .sum();
-    
+
     var averageLeadScore = contacts.stream()
         .mapToInt(c -> c.getLeadScore() != null ? c.getLeadScore() : 0)
         .average()
@@ -239,7 +239,8 @@ public class ContactEntityGraphService {
       String companyName,
       String companyIndustry,
       String companyWebsite
-  ) {}
+  ) {
+  }
 
   /**
    * Data transfer object for contact statistics by company.
@@ -251,5 +252,6 @@ public class ContactEntityGraphService {
       int totalContacts,
       int activeContacts,
       double averageLeadScore
-  ) {}
+  ) {
+  }
 }

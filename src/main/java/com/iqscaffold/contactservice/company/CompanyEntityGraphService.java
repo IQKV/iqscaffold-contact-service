@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service demonstrating optimal usage of entity graphs for Company operations.
- * 
+ *
  * <p>This service showcases how to leverage entity graphs to optimize query performance
  * for company-related operations by eagerly loading specific relationships based
  * on business requirements.
@@ -114,7 +114,7 @@ public class CompanyEntityGraphService {
    * Find companies by status with contacts loaded.
    * Use this when filtering companies and need contact information.
    *
-   * @param status the company status
+   * @param status   the company status
    * @param pageable pagination information
    * @return Page of companies with contacts loaded
    */
@@ -138,7 +138,7 @@ public class CompanyEntityGraphService {
    * Search companies by name with contacts loaded.
    * Use this when searching companies and need contact information.
    *
-   * @param name the company name search term
+   * @param name     the company name search term
    * @param pageable pagination information
    * @return Page of companies with contacts loaded
    */
@@ -214,12 +214,12 @@ public class CompanyEntityGraphService {
         .map(company -> new CompanyHierarchy(
             company.getId(),
             company.getName(),
-            company.getParentCompany() != null 
+            company.getParentCompany() != null
                 ? new CompanyHierarchy.CompanyInfo(
-                    company.getParentCompany().getId(),
-                    company.getParentCompany().getName(),
-                    company.getParentCompany().getIndustry()
-                ) : null,
+                company.getParentCompany().getId(),
+                company.getParentCompany().getName(),
+                company.getParentCompany().getIndustry()
+            ) : null,
             company.getChildCompanies().stream()
                 .map(child -> new CompanyHierarchy.CompanyInfo(
                     child.getId(),
@@ -245,12 +245,12 @@ public class CompanyEntityGraphService {
           var activeContacts = contacts.stream()
               .mapToInt(c -> c.getStatus().name().equals("ACTIVE") ? 1 : 0)
               .sum();
-          
+
           var averageLeadScore = contacts.stream()
               .mapToInt(c -> c.getLeadScore() != null ? c.getLeadScore() : 0)
               .average()
               .orElse(0.0);
-          
+
           var highValueContacts = contacts.stream()
               .mapToInt(c -> c.getLeadScore() != null && c.getLeadScore() >= 80 ? 1 : 0)
               .sum();
@@ -283,7 +283,8 @@ public class CompanyEntityGraphService {
       String parentCompanyName,
       int subsidiaryCount,
       List<String> subsidiaryNames
-  ) {}
+  ) {
+  }
 
   /**
    * Data transfer object for company hierarchy information.
@@ -298,7 +299,8 @@ public class CompanyEntityGraphService {
         Long id,
         String name,
         String industry
-    ) {}
+    ) {
+    }
   }
 
   /**
@@ -312,5 +314,6 @@ public class CompanyEntityGraphService {
       int activeContacts,
       double averageLeadScore,
       int highValueContacts
-  ) {}
+  ) {
+  }
 }

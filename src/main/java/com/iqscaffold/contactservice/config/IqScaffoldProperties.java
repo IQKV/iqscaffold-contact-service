@@ -8,59 +8,59 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 @ConfigurationProperties(prefix = "iqscaffold")
 public record IqScaffoldProperties(
-        String tenantIdHeader,
-        String userServiceUrl,
-        @NestedConfigurationProperty I18nProperties i18n,
-        @NestedConfigurationProperty LiquibaseProperties liquibase,
-        @NestedConfigurationProperty CrmProperties crm) {
+    String tenantIdHeader,
+    String userServiceUrl,
+    @NestedConfigurationProperty I18nProperties i18n,
+    @NestedConfigurationProperty LiquibaseProperties liquibase,
+    @NestedConfigurationProperty CrmProperties crm) {
 
-    public record I18nProperties(
-            List<String> supportedLocales,
-            String defaultLocale,
-            String messageBasename,
-            Duration messageCacheDuration,
-            boolean fallbackToSystemLocale,
-            boolean useCodeAsDefaultMessage) {
+  public record I18nProperties(
+      List<String> supportedLocales,
+      String defaultLocale,
+      String messageBasename,
+      Duration messageCacheDuration,
+      boolean fallbackToSystemLocale,
+      boolean useCodeAsDefaultMessage) {
+  }
+
+  public record LiquibaseProperties(
+      String systemChangeLog,
+      String tenantChangeLog) {
+  }
+
+  public record CrmProperties(
+      @NestedConfigurationProperty SecurityProperties security,
+      @NestedConfigurationProperty ContactProperties contact,
+      @NestedConfigurationProperty CompanyProperties company,
+      @NestedConfigurationProperty ActivityProperties activity) {
+
+    public record SecurityProperties(
+        @NestedConfigurationProperty JwtProperties jwt) {
+      public record JwtProperties(
+          String jwkSetUri,
+          String issuer,
+          String secretKey,
+          String algorithm) {
+      }
     }
 
-    public record LiquibaseProperties(
-            String systemChangeLog,
-            String tenantChangeLog) {
+    public record ContactProperties(
+        boolean enableLeadScoring,
+        boolean enableActivityTracking,
+        boolean enableEmailIntegration,
+        int defaultLeadScore,
+        int maxLeadScore) {
     }
 
-    public record CrmProperties(
-            @NestedConfigurationProperty SecurityProperties security,
-            @NestedConfigurationProperty ContactProperties contact,
-            @NestedConfigurationProperty CompanyProperties company,
-            @NestedConfigurationProperty ActivityProperties activity) {
-
-        public record SecurityProperties(
-                @NestedConfigurationProperty JwtProperties jwt) {
-            public record JwtProperties(
-                    String jwkSetUri,
-                    String issuer,
-                    String secretKey,
-                    String algorithm) {
-            }
-        }
-
-        public record ContactProperties(
-                boolean enableLeadScoring,
-                boolean enableActivityTracking,
-                boolean enableEmailIntegration,
-                int defaultLeadScore,
-                int maxLeadScore) {
-        }
-
-        public record CompanyProperties(
-                boolean enableCompanyHierarchy,
-                boolean enableCompanyScoring) {
-        }
-
-        public record ActivityProperties(
-                boolean enableAutoLogging,
-                int retentionDays,
-                int maxActivitiesPerContact) {
-        }
+    public record CompanyProperties(
+        boolean enableCompanyHierarchy,
+        boolean enableCompanyScoring) {
     }
+
+    public record ActivityProperties(
+        boolean enableAutoLogging,
+        int retentionDays,
+        int maxActivitiesPerContact) {
+    }
+  }
 }

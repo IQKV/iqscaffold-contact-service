@@ -63,7 +63,7 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
    * Find contacts by status with company details loaded.
    * Use this when filtering contacts by status and need company information.
    *
-   * @param status the contact status
+   * @param status   the contact status
    * @param pageable pagination information
    * @return Page of contacts with company details loaded
    */
@@ -76,7 +76,7 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
    * Use this when searching contacts and need company information.
    *
    * @param searchTerm the search term
-   * @param pageable pagination information
+   * @param pageable   pagination information
    * @return Page of contacts with company details loaded
    */
   @EntityGraph("contact-with-company")

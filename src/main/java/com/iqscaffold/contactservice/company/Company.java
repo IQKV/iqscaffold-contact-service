@@ -371,10 +371,10 @@ public class Company {
   @Override
   public String toString() {
     return "Company{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", industry='" + industry + '\'' +
-        ", status=" + status +
-        '}';
+           "id=" + id +
+           ", name='" + name + '\'' +
+           ", industry='" + industry + '\'' +
+           ", status=" + status +
+           '}';
   }
 }
