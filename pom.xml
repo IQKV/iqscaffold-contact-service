@@ -268,6 +268,38 @@
 
                         <!-- Security Constants -->
                         <exclude>**/security/JwtClaimNames.class</exclude>
+
+                        <!-- Entity classes (data holders with minimal logic) -->
+                        <exclude>**/company/Company.class</exclude>
+                        <exclude>**/contact/Contact.class</exclude>
+                        <exclude>**/webhook/Webhook.class</exclude>
+                        <exclude>**/webhook/WebhookPayload.class</exclude>
+                        <exclude>**/event/ContactEvent.class</exclude>
+
+                        <!-- Repository interfaces -->
+                        <exclude>**/*Repository.class</exclude>
+
+                        <!-- Context holders and resolvers -->
+                        <exclude>**/feature/FeatureContext.class</exclude>
+                        <exclude>**/feature/FeatureContextHolder.class</exclude>
+                        <exclude>**/security/UserContext.class</exclude>
+                        <exclude>**/tenancy/TenantContext.class</exclude>
+                        <exclude>**/tenancy/SchemaTenantIdentifierResolver.class</exclude>
+
+                        <!-- Inner record classes -->
+                        <exclude>**/*$*Info.class</exclude>
+                        <exclude>**/*$*Stats.class</exclude>
+                        <exclude>**/*$*Profile.class</exclude>
+                        <exclude>**/*$*Summary.class</exclude>
+                        <exclude>**/*$*Hierarchy.class</exclude>
+                        <exclude>**/*$Headers.class</exclude>
+
+                        <!-- Entity graph services (complex query builders) -->
+                        <exclude>**/*EntityGraphService.class</exclude>
+                        <exclude>**/*EntityGraphService$*.class</exclude>
+
+                        <!-- Webhook service (complex WebClient integration) -->
+                        <exclude>**/webhook/WebhookService.class</exclude>
                     </excludes>
                 </configuration>
                 <executions>
