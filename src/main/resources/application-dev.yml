@@ -1,10 +1,40 @@
 # Development Profile Configuration
-# This profile enables demo data for development
+# This profile enables demo data for development and enhanced logging
 
 iqscaffold:
   liquibase:
     contexts: "demo"
+  
+  # CRM Configuration - Development settings
+  crm:
+    contact:
+      enableLeadScoring: true
+      enableActivityTracking: true
+      enableEmailIntegration: false  # Disable email in dev
+      defaultLeadScore: 10
+      maxLeadScore: 100
+    company:
+      enableCompanyHierarchy: true
+      enableCompanyScoring: true
+    activity:
+      enableAutoLogging: true
+      retentionDays: 90  # Shorter retention for dev
+      maxActivitiesPerContact: 500
 
 logging:
   level:
+    # Application logging
+    com.iqscaffold.contactservice: DEBUG
     com.iqscaffold.contactservice.tenancy.TenantLiquibaseRunner: DEBUG
+    
+    # Spring Framework
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    
+    # Database and JPA
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    
+    # Infrastructure
+    liquibase: INFO
+    com.zaxxer.hikari: INFO
