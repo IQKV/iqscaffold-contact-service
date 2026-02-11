@@ -1,29 +1,30 @@
+# Local Development Environment Configuration
+
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/contact_db
-    username: ${DB_USERNAME:contact_user}
-    password: ${DB_PASSWORD:contact_pass}
     hikari:
       pool-name: ContactServiceHikariPool-Local
-      leak-detection-threshold: 60000
 
   jpa:
     show-sql: true
 
+iqscaffold:
+  database:
+    url: ${IQSCAFFOLD_DATABASE_URL:jdbc:postgresql://localhost:5432/iqscaffold_contact_local}
+  
+  cache:
+    redis:
+      key-prefix: "iqscaffold:contact:local"
+      enable-statistics: true
+  
+  crm:
+    contact:
+      enable-email-integration: false
+    company:
+      enable-company-scoring: false
+    activity:
+      retention-days: 30
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
-
-# Local development overrides for IQ Scaffold properties
-iqscaffold:
-  crm:
-    contact:
-      enable-lead-scoring: true
-      enable-activity-tracking: true
-      enable-email-integration: false  # Disabled for local dev
-    company:
-      enable-company-hierarchy: true
-      enable-company-scoring: false  # Disabled for local dev
-    activity:
-      enable-auto-logging: true
-      retention-days: 30  # Shorter retention for local dev
