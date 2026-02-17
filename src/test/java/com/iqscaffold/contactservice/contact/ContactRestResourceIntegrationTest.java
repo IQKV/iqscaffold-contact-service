@@ -10,6 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iqscaffold.contactservice.company.Company;
+import com.iqscaffold.contactservice.company.CompanyRepository;
+import com.iqscaffold.contactservice.company.CompanyStatus;
 import com.iqscaffold.contactservice.contact.dto.ContactDtos;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -41,9 +44,13 @@ class ContactRestResourceIntegrationTest {
   @Autowired
   private ContactRepository contactRepository;
 
+  @Autowired
+  private CompanyRepository companyRepository;
+
   @BeforeEach
   void setUp() {
     contactRepository.deleteAll();
+    companyRepository.deleteAll();
   }
 
   @Test
@@ -236,19 +243,23 @@ class ContactRestResourceIntegrationTest {
   @DisplayName("Should get contacts by company")
   @WithMockUser(authorities = "USER")
   void shouldGetContactsByCompany() throws Exception {
+    // Create companies first
+    Company company1 = createTestCompany("Company 1");
+    Company company2 = createTestCompany("Company 2");
+
     Contact contact1 = createTestContact("John", "Doe", "john.doe@example.com");
-    contact1.setCompanyId(1L);
+    contact1.setCompanyId(company1.getId());
     contactRepository.save(contact1);
 
     Contact contact2 = createTestContact("Jane", "Smith", "jane.smith@example.com");
-    contact2.setCompanyId(1L);
+    contact2.setCompanyId(company1.getId());
     contactRepository.save(contact2);
 
     Contact contact3 = createTestContact("Bob", "Johnson", "bob.johnson@example.com");
-    contact3.setCompanyId(2L);
+    contact3.setCompanyId(company2.getId());
     contactRepository.save(contact3);
 
-    mockMvc.perform(get("/api/v1/contacts/company/{companyId}", 1L))
+    mockMvc.perform(get("/api/v1/contacts/company/{companyId}", company1.getId()))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.length()").value(2));
   }
@@ -333,5 +344,14 @@ class ContactRestResourceIntegrationTest {
     contact.setCreatedBy("test");
     contact.setUpdatedBy("test");
     return contactRepository.save(contact);
+  }
+
+  private Company createTestCompany(String name) {
+    Company company = new Company();
+    company.setName(name);
+    company.setStatus(CompanyStatus.ACTIVE);
+    company.setCreatedBy("test");
+    company.setUpdatedBy("test");
+    return companyRepository.save(company);
   }
 }
