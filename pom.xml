@@ -175,6 +175,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test-autoconfigure</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Resilience4j for Circuit Breaker and Time Limiter -->
         <dependency>
             <groupId>io.github.resilience4j</groupId>
