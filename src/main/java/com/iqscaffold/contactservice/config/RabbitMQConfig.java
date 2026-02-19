@@ -1,5 +1,8 @@
 package com.iqscaffold.contactservice.config;
 
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -18,6 +21,8 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
   public static final String EXCHANGE_NAME = "crm.events";
+  public static final String DLX_EXCHANGE = "iqscaffold.dlx";
+  public static final String DLQ = "iqscaffold.dlq";
   public static final String CONTACT_CREATED_ROUTING_KEY = "contact.created";
   public static final String CONTACT_UPDATED_ROUTING_KEY = "contact.updated";
   public static final String CONTACT_DELETED_ROUTING_KEY = "contact.deleted";
@@ -31,6 +36,33 @@ public class RabbitMQConfig {
   @Bean
   public TopicExchange crmEventsExchange() {
     return new TopicExchange(EXCHANGE_NAME, true, false);
+  }
+
+  /**
+   * Dead Letter Exchange for failed messages
+   */
+  @Bean
+  public TopicExchange deadLetterExchange() {
+    return new TopicExchange(DLX_EXCHANGE, true, false);
+  }
+
+  /**
+   * Dead Letter Queue for failed messages
+   */
+  @Bean
+  public Queue deadLetterQueue() {
+    return new Queue(DLQ, true);
+  }
+
+  /**
+   * Bind dead letter queue to DLX with all routing keys
+   */
+  @Bean
+  public Binding deadLetterBinding() {
+    return BindingBuilder
+        .bind(deadLetterQueue())
+        .to(deadLetterExchange())
+        .with("#");
   }
 
   /**
