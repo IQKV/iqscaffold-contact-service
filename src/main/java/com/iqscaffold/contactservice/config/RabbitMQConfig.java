@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-  public static final String EXCHANGE_NAME = "crm.events";
+  public static final String EXCHANGE_NAME = "iqscaffold.events";
   public static final String DLX_EXCHANGE = "iqscaffold.dlx";
   public static final String DLQ = "iqscaffold.dlq";
   public static final String CONTACT_CREATED_ROUTING_KEY = "contact.created";
@@ -113,4 +113,31 @@ public class RabbitMQConfig {
     factory.setMessageConverter(jsonMessageConverter());
     return factory;
   }
+
+
+  /**
+   * Tenant events queue with dead letter routing
+   * Receives tenant lifecycle events from User Service
+   */
+  @Bean
+  public Queue tenantEventsQueue() {
+    return new Queue("iqscaffold.contact.tenant.events", true, false, false,
+        java.util.Map.of(
+            "x-dead-letter-exchange", DLX_EXCHANGE,
+            "x-message-ttl", 86400000 // 24 hours
+        ));
+  }
+
+  /**
+   * Bind tenant events queue to exchange with tenant.# routing key
+   * Receives all tenant lifecycle events (created, updated, deleted)
+   */
+  @Bean
+  public Binding tenantEventsBinding() {
+    return BindingBuilder
+        .bind(tenantEventsQueue())
+        .to(crmEventsExchange())
+        .with("tenant.#");
+  }
+
 }
