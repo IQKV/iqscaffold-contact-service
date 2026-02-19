@@ -106,7 +106,7 @@ This is the contact management hub for the IQ Scaffold CRM platform. It centrali
 
 ### Technology Stack
 
-- **Framework**: Spring Boot 3.5.7
+- **Framework**: Spring Boot 4.0
 - **Java**: 21
 - **Database**: PostgreSQL 15 with Liquibase migrations
 - **Cache**: Hibernate second-level cache with Ehcache 3
