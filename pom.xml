@@ -254,6 +254,7 @@
 
                         <!-- Filters -->
                         <exclude>**/*Filter.class</exclude>
+                        <exclude>**/*Event.class</exclude>
 
                         <!-- Health Indicators -->
                         <exclude>**/*HealthIndicator.class</exclude>
