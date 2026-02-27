@@ -36,7 +36,7 @@
             <column name="status" value="CUSTOMER"/>
             <column name="lead_score" value="95"/>
             <column name="converted_from_lead_id" value="12345"/>
-            <column name="converted_at" valueDate="2024-11-15T16:30:00Z"/>
+            <column name="converted_at" valueDate="2024-11-15T16:30:00"/>
             <column name="notes" value="Successfully converted from lead to customer in November 2024. Led the evaluation process for their CRM modernization project. Excellent relationship, very satisfied with our platform. Potential advocate for expansion to other business units."/>
             <column name="created_by" value="admin"/>
             <column name="updated_by" value="billing"/>
@@ -68,7 +68,7 @@
             <column name="description" value="Follow-up call with Sarah Chen to discuss technical requirements for the proof of concept. Topics: API integration capabilities, data migration timeline, security compliance requirements, and POC success criteria. Prepare technical architecture overview and integration documentation."/>
             <column name="status" value="PENDING"/>
             <column name="priority" value="HIGH"/>
-            <column name="due_date" valueDate="2025-01-25T14:00:00Z"/>
+            <column name="due_date" valueDate="2025-01-25T14:00:00"/>
             <column name="completed_at" value=""/>
             <column name="created_by" value="admin"/>
             <column name="updated_by" value="admin"/>
@@ -85,8 +85,8 @@
             <column name="description" value="Quarterly business review with Michael Rodriguez and his team. Covered: platform usage metrics (95% user adoption), ROI analysis ($2.3M in efficiency gains), upcoming feature requests, and expansion opportunities. Discussed potential rollout to European operations in Q2 2025."/>
             <column name="status" value="COMPLETED"/>
             <column name="priority" value="MEDIUM"/>
-            <column name="due_date" valueDate="2024-12-20T10:00:00Z"/>
-            <column name="completed_at" valueDate="2024-12-20T11:30:00Z"/>
+            <column name="due_date" valueDate="2024-12-20T10:00:00"/>
+            <column name="completed_at" valueDate="2024-12-20T11:30:00"/>
             <column name="created_by" value="billing"/>
             <column name="updated_by" value="billing"/>
             <column name="assigned_to" value="billing"/>
@@ -102,7 +102,7 @@
             <column name="description" value="Strategic planning session with Jennifer Park to outline 2025 partnership initiatives. Agenda: referral program optimization, co-marketing campaign planning, joint webinar series, startup success metrics tracking, and expanded partner benefits program. Goal: 50% increase in qualified referrals."/>
             <column name="status" value="PENDING"/>
             <column name="priority" value="MEDIUM"/>
-            <column name="due_date" valueDate="2025-01-30T15:00:00Z"/>
+            <column name="due_date" valueDate="2025-01-30T15:00:00"/>
             <column name="completed_at" value=""/>
             <column name="created_by" value="manager"/>
             <column name="updated_by" value="manager"/>
@@ -120,11 +120,11 @@
             <column name="retry_count" value="3"/>
             <column name="timeout_seconds" value="30"/>
             <column name="description" value="Webhook integration for syncing contact events with external CRM system. Sends real-time notifications for contact lifecycle events to maintain data consistency across platforms."/>
-            <column name="created_at" valueDate="2024-12-01T00:00:00Z"/>
-            <column name="updated_at" valueDate="2024-12-15T10:30:00Z"/>
+            <column name="created_at" valueDate="2024-12-01T00:00:00"/>
+            <column name="updated_at" valueDate="2024-12-15T10:30:00"/>
             <column name="created_by" value="admin"/>
             <column name="updated_by" value="admin"/>
-            <column name="last_triggered_at" valueDate="2024-12-20T14:22:15Z"/>
+            <column name="last_triggered_at" valueDate="2024-12-20T14:22:15"/>
             <column name="success_count" value="47"/>
             <column name="failure_count" value="2"/>
         </insert>
