@@ -1,11 +1,11 @@
 # Demo Contact Records
 
-This directory contains demo contact data migrations for development and testing purposes. The migrations create a complete CRM scenario for the `demo-tenant` organization with companies, contacts, activities, and webhook integrations.
+This directory contains demo contact data migrations for development and testing purposes. The migrations create a complete CRM scenario for the `default` organization with companies, contacts, activities, and webhook integrations.
 
 ## Demo CRM Scenario
 
 ### Organization Context
-- **Tenant**: `demo-tenant` (Demo Tech Solutions)
+- **Tenant**: `default` (Demo Tech Solutions)
 - **Schema**: `demo_tenant` (isolated tenant schema)
 - **Industry**: Technology/SaaS Platform Provider
 - **Business Model**: B2B Enterprise Software Sales

@@ -6,12 +6,12 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
 
     <changeSet id="20250121000000-demo-contact-records" author="iqscaffold" context="demo">
-        <comment>Create demo contact records for demo-tenant with companies, contacts, and activities</comment>
+        <comment>Create demo contact records for default with companies, contacts, and activities</comment>
 
         <!-- Demo Tenant Info for Contact Service -->
-        <!-- Links demo-tenant to its schema for contact service operations -->
+        <!-- Links default to its schema for contact service operations -->
         <insert tableName="tenant_info" schemaName="public">
-            <column name="tenant_id" value="demo-tenant"/>
+            <column name="tenant_id" value="default"/>
             <column name="tenant_name" value="Demo Tech Solutions"/>
             <column name="schema_name" value="demo_tenant"/>
             <column name="status" value="ACTIVE"/>
@@ -91,7 +91,7 @@
             
             <!-- Remove tenant info -->
             <delete tableName="tenant_info" schemaName="public">
-                <where>tenant_id = 'demo-tenant'</where>
+                <where>tenant_id = 'default'</where>
             </delete>
         </rollback>
     </changeSet>
