@@ -32,7 +32,7 @@
             <column name="state" value="Texas"/>
             <column name="postal_code" value="78701"/>
             <column name="country" value="United States"/>
-            <column name="parent_company_id" value=""/>
+            <column name="parent_company_id" valueNumeric="null"/>
             <column name="status" value="PROSPECT"/>
             <column name="notes" value="Mid-size software company looking to modernize their CRM system. Initial contact made at Tech Conference 2024. Strong interest in our enterprise SaaS platform. Decision timeline: Q1 2025. Budget approved for $50K+ solution."/>
             <column name="created_by" value="owner"/>
@@ -54,7 +54,7 @@
             <column name="state" value="Illinois"/>
             <column name="postal_code" value="60601"/>
             <column name="country" value="United States"/>
-            <column name="parent_company_id" value=""/>
+            <column name="parent_company_id" valueNumeric="null"/>
             <column name="status" value="ACTIVE"/>
             <column name="notes" value="Large retail technology company, converted from prospect in November 2024. Currently using our Enterprise plan. Excellent relationship with their IT team. Potential for expansion to additional business units. Annual contract value: $180K."/>
             <column name="created_by" value="admin"/>
@@ -76,7 +76,7 @@
             <column name="state" value="California"/>
             <column name="postal_code" value="94105"/>
             <column name="country" value="United States"/>
-            <column name="parent_company_id" value=""/>
+            <column name="parent_company_id" valueNumeric="null"/>
             <column name="status" value="PARTNER"/>
             <column name="notes" value="Strategic partner accelerator that refers early-stage startups to our platform. Partnership agreement signed in October 2024. They provide 20% discount codes to their portfolio companies. Quarterly business reviews scheduled."/>
             <column name="created_by" value="owner"/>
