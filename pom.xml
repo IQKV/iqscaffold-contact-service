@@ -304,6 +304,7 @@
                         <exclude>**/security/UserContext.class</exclude>
                         <exclude>**/tenancy/TenantContext.class</exclude>
                         <exclude>**/tenancy/SchemaTenantIdentifierResolver.class</exclude>
+                        <exclude>**/tenancy/SchemaNameResolver.class</exclude>
 
                         <!-- Inner record classes -->
                         <exclude>**/*$*Info.class</exclude>
