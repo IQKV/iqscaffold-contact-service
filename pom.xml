@@ -278,6 +278,8 @@
                         <exclude>**/*Listener.class</exclude>
                         <exclude>**/*EventListener.class</exclude>
 
+                        <exclude>**/health/*.class</exclude>
+
                         <!-- Messaging Events -->
                         <exclude>**/infrastructure/messaging/*Event.class</exclude>
                         <exclude>**/infrastructure/messaging/*Publisher.class</exclude>
