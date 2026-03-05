@@ -307,6 +307,7 @@
                         <exclude>**/tenancy/TenantContext.class</exclude>
                         <exclude>**/tenancy/SchemaTenantIdentifierResolver.class</exclude>
                         <exclude>**/tenancy/SchemaNameResolver.class</exclude>
+                        <exclude>**/tenancy/SchemaPerTenantConnectionProvider.class</exclude>
 
                         <!-- Inner record classes -->
                         <exclude>**/*$*Info.class</exclude>
