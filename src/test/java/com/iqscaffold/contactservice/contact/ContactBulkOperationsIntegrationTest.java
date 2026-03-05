@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iqscaffold.contactservice.config.TestTenantConfiguration;
 import com.iqscaffold.contactservice.config.TestWebClientConfiguration;
 import com.iqscaffold.contactservice.contact.dto.ContactDtos;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
-@Import(TestWebClientConfiguration.class)
+@Import({TestWebClientConfiguration.class, TestTenantConfiguration.class})
 @Transactional
 class ContactBulkOperationsIntegrationTest {
 
