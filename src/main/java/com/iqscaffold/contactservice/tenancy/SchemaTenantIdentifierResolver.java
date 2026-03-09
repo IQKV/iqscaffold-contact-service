@@ -56,9 +56,9 @@ public class SchemaTenantIdentifierResolver implements CurrentTenantIdentifierRe
   public String resolveCurrentTenantIdentifier() {
     var tenantId = TenantContext.getCurrentTenantId();
     var schemaName = schemaNameResolver.toSchema(tenantId);
-    
+
     logger.info("Hibernate resolving tenant: {} → schema: {}", tenantId, schemaName);
-    
+
     return schemaName;
   }
 

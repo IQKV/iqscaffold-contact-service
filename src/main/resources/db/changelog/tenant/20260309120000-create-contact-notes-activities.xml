@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+  <!-- Create contact_notes table -->
+  <changeSet id="20260309120000-1" author="system">
+    <createTable tableName="contact_notes">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="contact_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="content" type="TEXT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="updated_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by_user_id" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_by_name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <addForeignKeyConstraint
+        baseTableName="contact_notes"
+        baseColumnNames="contact_id"
+        constraintName="fk_contact_notes_contact"
+        referencedTableName="contacts"
+        referencedColumnNames="id"
+        onDelete="CASCADE"/>
+
+    <createIndex indexName="idx_contact_notes_contact_id" tableName="contact_notes">
+      <column name="contact_id"/>
+    </createIndex>
+
+    <createIndex indexName="idx_contact_notes_created_at" tableName="contact_notes">
+      <column name="created_at" descending="true"/>
+    </createIndex>
+  </changeSet>
+
+  <!-- Create contact_activities table -->
+  <changeSet id="20260309120000-2" author="system">
+    <createTable tableName="contact_activities">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="contact_id" type="BIGINT">
+        <constraints nullable="false"/>
+      </column>
+      <column name="activity_type" type="VARCHAR(50)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="description" type="VARCHAR(1000)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="timestamp" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+        <constraints nullable="false"/>
+      </column>
+      <column name="performed_by_user_id" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="performed_by_name" type="VARCHAR(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="metadata" type="JSONB"/>
+    </createTable>
+
+    <addForeignKeyConstraint
+        baseTableName="contact_activities"
+        baseColumnNames="contact_id"
+        constraintName="fk_contact_activities_contact"
+        referencedTableName="contacts"
+        referencedColumnNames="id"
+        onDelete="CASCADE"/>
+
+    <createIndex indexName="idx_contact_activities_contact_id" tableName="contact_activities">
+      <column name="contact_id"/>
+    </createIndex>
+
+    <createIndex indexName="idx_contact_activities_timestamp" tableName="contact_activities">
+      <column name="timestamp" descending="true"/>
+    </createIndex>
+
+    <createIndex indexName="idx_contact_activities_type" tableName="contact_activities">
+      <column name="activity_type"/>
+    </createIndex>
+  </changeSet>
+
+</databaseChangeLog>

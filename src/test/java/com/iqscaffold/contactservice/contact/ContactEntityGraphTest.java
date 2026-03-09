@@ -15,7 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 /**
  * Test class demonstrating entity graph functionality for contact entities.
- * 
+ *
  * <p>These tests verify that entity graphs properly load associations
  * without causing lazy loading exceptions or N+1 query problems.
  */
@@ -57,12 +57,12 @@ class ContactEntityGraphTest {
 
     // Then: Contact and company should be loaded
     assertThat(foundContact).isPresent();
-    
+
     // Verify company is loaded without lazy loading exception
     assertDoesNotThrow(() -> {
       var loadedContact = foundContact.get();
       var loadedCompany = loadedContact.getCompany();
-      
+
       assertThat(loadedCompany).isNotNull();
       assertThat(loadedCompany.getName()).isEqualTo("Tech Corp");
       assertThat(loadedCompany.getIndustry()).isEqualTo("Technology");
@@ -103,7 +103,7 @@ class ContactEntityGraphTest {
 
     // Then: All contacts and their company should be loaded
     assertThat(foundContacts).hasSize(2);
-    
+
     // Verify company details are loaded for all contacts without lazy loading exceptions
     assertDoesNotThrow(() -> {
       for (final var contact : foundContacts) {
@@ -156,15 +156,15 @@ class ContactEntityGraphTest {
 
     // Then: All contacts should be loaded in a single query
     assertThat(foundContacts).hasSize(3);
-    
+
     // Verify all contacts are loaded
     var contactEmails = foundContacts.stream()
         .map(Contact::getEmail)
         .toList();
-    
+
     assertThat(contactEmails).containsExactlyInAnyOrder(
         "contact1@company1.com",
-        "contact2@company2.com", 
+        "contact2@company2.com",
         "contact3@company1.com"
     );
   }
@@ -208,18 +208,18 @@ class ContactEntityGraphTest {
 
     // Then: All contacts and their companies should be loaded
     assertThat(foundContacts).hasSize(2);
-    
+
     // Verify company details are loaded without lazy loading exceptions
     assertDoesNotThrow(() -> {
       var contactsByEmail = foundContacts.stream()
           .collect(java.util.stream.Collectors.toMap(Contact::getEmail, c -> c));
-      
+
       var financeContact = contactsByEmail.get("batch1@finance.com");
       assertThat(financeContact).isNotNull();
       assertThat(financeContact.getCompany()).isNotNull();
       assertThat(financeContact.getCompany().getName()).isEqualTo("Batch Company One");
       assertThat(financeContact.getCompany().getIndustry()).isEqualTo("Finance");
-      
+
       var healthcareContact = contactsByEmail.get("batch2@healthcare.com");
       assertThat(healthcareContact).isNotNull();
       assertThat(healthcareContact.getCompany()).isNotNull();
@@ -261,13 +261,13 @@ class ContactEntityGraphTest {
 
     // Then: Only high-value contact should be returned with company details
     assertThat(highValueContacts).hasSize(1);
-    
+
     // Verify company details are loaded without lazy loading exceptions
     assertDoesNotThrow(() -> {
       var contact = highValueContacts.get(0);
       assertThat(contact.getEmail()).isEqualTo("high@corp.com");
       assertThat(contact.getLeadScore()).isEqualTo(95);
-      
+
       var company1 = contact.getCompany();
       assertThat(company1).isNotNull();
       assertThat(company1.getName()).isEqualTo("High Value Corp");

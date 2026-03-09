@@ -11,6 +11,7 @@
     <include file="db/changelog/tenant/20251110167200-create-activity-tables.xml"/>
     <include file="db/changelog/tenant/20251110167300-add-lead-conversion-fields.xml"/>
     <include file="db/changelog/tenant/20251110167400-create-webhooks-table.xml"/>
+    <include file="db/changelog/tenant/20260309120000-create-contact-notes-activities.xml"/>
     
     <!-- Demo data for development and testing (context: demo) -->
     <include file="db/changelog/tenant/demo/master.xml"/>

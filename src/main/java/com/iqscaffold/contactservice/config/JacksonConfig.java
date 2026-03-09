@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Primary;
 
 /**
  * Jackson configuration for JSON serialization/deserialization.
- * 
+ *
  * <p>This configuration ensures:
  * <ul>
  *   <li>No Java type information in JSON output (clean RFC 9457 ProblemDetail)</li>
@@ -24,7 +24,7 @@ public class JacksonConfig {
 
   /**
    * Configure the primary ObjectMapper bean for the application.
-   * 
+   *
    * <p>Key configurations:
    * <ul>
    *   <li><strong>No Default Typing</strong> - Prevents Java type information in JSON</li>
@@ -32,28 +32,28 @@ public class JacksonConfig {
    *   <li><strong>Non-null Inclusion</strong> - Excludes null values from JSON output</li>
    *   <li><strong>Indented Output</strong> - Pretty-printed JSON for readability</li>
    * </ul>
-   * 
+   *
    * @return Configured ObjectMapper instance
    */
   @Bean
   @Primary
   public ObjectMapper objectMapper() {
     ObjectMapper mapper = new ObjectMapper();
-    
+
     // Disable default typing to prevent Java type information in JSON
     // This ensures ProblemDetail responses don't include ["org.springframework.http.ProblemDetail", ...]
     mapper.deactivateDefaultTyping();
-    
+
     // Register JavaTimeModule for proper date/time handling
     mapper.registerModule(new JavaTimeModule());
-    
+
     // Configure serialization features
     mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-    
+
     // Exclude null values from JSON output
     mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    
+
     return mapper;
   }
 }

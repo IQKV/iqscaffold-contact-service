@@ -1,5 +1,8 @@
 package com.iqscaffold.contactservice.health;
 
+import java.time.Instant;
+import java.util.Map;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -8,13 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Instant;
-import java.util.Map;
-
 /**
  * Public health check endpoint for contact service.
  * Used by frontend to monitor service availability and display degradation banners.
- * 
+ *
  * <p>This endpoint is intentionally public (no authentication required) to allow
  * health monitoring even when authentication services are degraded.</p>
  */

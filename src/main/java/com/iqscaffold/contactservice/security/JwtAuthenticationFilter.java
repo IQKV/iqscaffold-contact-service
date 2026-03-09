@@ -129,7 +129,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     if (userId == null) {
       userId = extractLong(jwt.getClaim(JwtClaimNames.USER_ID));
     }
-    
+
     String username = jwt.getClaim(JwtClaimNames.USERNAME);
     String email = jwt.getClaim(JwtClaimNames.EMAIL);
     Set<String> authorities = extractAuthorities(jwt.getClaim(JwtClaimNames.AUTHORITIES));

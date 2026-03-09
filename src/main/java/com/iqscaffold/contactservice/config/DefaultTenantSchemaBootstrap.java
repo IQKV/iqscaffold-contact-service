@@ -1,5 +1,7 @@
 package com.iqscaffold.contactservice.config;
 
+import java.util.List;
+
 import com.iqscaffold.contactservice.tenancy.TenantLiquibaseRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,15 +12,13 @@ import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 /**
  * Bootstrap component that ensures tenant schemas exist and have migrations applied.
- * 
+ *
  * <p>This component handles the case where tenant schemas are created externally
- * (e.g., by Helm init scripts) or already exist. It checks each configured tenant 
+ * (e.g., by Helm init scripts) or already exist. It checks each configured tenant
  * schema and applies all pending migrations on application startup.
- * 
+ *
  * <p>This is particularly useful in Kubernetes deployments where:
  * <ul>
  *   <li>Helm charts create empty tenant schemas (tenant_default, tenant_demo, tenant_acme)</li>
@@ -26,14 +26,14 @@ import java.util.List;
  *   <li>Multiple microservices need to provision their own tables in shared tenant schemas</li>
  *   <li>New migrations need to be applied to existing tenant schemas</li>
  * </ul>
- * 
+ *
  * <p>Execution order:
  * <ol>
  *   <li>SystemLiquibaseInitializer runs system migrations (public schema)</li>
  *   <li>DefaultTenantSchemaBootstrap creates and migrates tenant schemas (this class)</li>
  *   <li>Application startup completes</li>
  * </ol>
- * 
+ *
  * <p>Configuration:
  * <ul>
  *   <li>Enable/disable: {@code iqscaffold.bootstrap.default-tenant-schema.enabled}</li>
@@ -71,16 +71,16 @@ public class DefaultTenantSchemaBootstrap implements InitializingBean {
   @Override
   public void afterPropertiesSet() {
     logger.info("Checking tenant schemas for missing migrations...");
-    
+
     List<String> tenantIdList = List.of(tenantIds.split(","));
     logger.info("Configured tenant IDs: {}", tenantIdList);
-    
+
     for (String tenantId : tenantIdList) {
       String trimmedTenantId = tenantId.trim();
       if (trimmedTenantId.isEmpty()) {
         continue;
       }
-      
+
       try {
         checkAndMigrateTenantSchema(trimmedTenantId);
       } catch (Exception e) {
@@ -88,18 +88,18 @@ public class DefaultTenantSchemaBootstrap implements InitializingBean {
         // Continue with other tenants instead of failing completely
       }
     }
-    
+
     logger.info("Tenant schema migration check completed.");
   }
 
   private void checkAndMigrateTenantSchema(String tenantId) {
     String schema = schemaPrefix + tenantId;
-    
+
     logger.debug("Checking schema: {} for tenant: {}", schema, tenantId);
 
     // Check if schema exists
     boolean schemaExists = checkSchemaExists(schema);
-    
+
     if (!schemaExists) {
       logger.info("Schema {} does not exist for tenant: {}. Creating and migrating...", schema, tenantId);
       createSchemaAndMigrate(schema, tenantId);
@@ -128,7 +128,7 @@ public class DefaultTenantSchemaBootstrap implements InitializingBean {
       logger.info("Creating schema: {}", schema);
       jdbcTemplate.execute("CREATE SCHEMA IF NOT EXISTS " + schema);
       logger.info("Schema created: {}", schema);
-      
+
       runMigrations(schema, tenantId);
     } catch (Exception e) {
       logger.error("Failed to create schema and run migrations for tenant: {}", tenantId, e);

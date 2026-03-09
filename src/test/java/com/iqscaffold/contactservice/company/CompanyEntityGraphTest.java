@@ -14,7 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 /**
  * Test class demonstrating entity graph functionality for company entities.
- * 
+ *
  * <p>
  * These tests verify that entity graphs properly load associations
  * without causing lazy loading exceptions or N+1 query problems.
