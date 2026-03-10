@@ -233,10 +233,10 @@ Production deployments include:
 
 - Prometheus ServiceMonitor
 - Alerting rules for service health:
-  - **ContactServiceDown**: Service unavailable for >1 minute
-  - **ContactServiceHighMemory**: Memory usage >80% for >5 minutes
-  - **ContactServiceHighLatency**: 95th percentile latency >2 seconds
-  - **ContactServiceDatabaseConnectionFailure**: No active database connections
+    - **ContactServiceDown**: Service unavailable for >1 minute
+    - **ContactServiceHighMemory**: Memory usage >80% for >5 minutes
+    - **ContactServiceHighLatency**: 95th percentile latency >2 seconds
+    - **ContactServiceDatabaseConnectionFailure**: No active database connections
 - Grafana dashboards for contact metrics
 
 ## Troubleshooting
@@ -245,47 +245,47 @@ Production deployments include:
 
 1. **Database Connection Failures**
 
-   ```bash
-   kubectl logs deployment/iqscaffold-contact-service -n iqscaffold-dev-env
-   ```
+    ```bash
+    kubectl logs deployment/iqscaffold-contact-service -n iqscaffold-dev-env
+    ```
 
 2. **Redis Connection Issues**
 
-   ```bash
-   # Check Redis connectivity
-   kubectl exec -it deployment/iqscaffold-contact-service -n iqscaffold-dev-env -- \
-     redis-cli -h iqscaffold-redis -p 6379 ping
+    ```bash
+    # Check Redis connectivity
+    kubectl exec -it deployment/iqscaffold-contact-service -n iqscaffold-dev-env -- \
+      redis-cli -h iqscaffold-redis -p 6379 ping
 
-   # Verify Redis password configuration
-   kubectl get secret iqscaffold-contact-service-secrets -o yaml | grep redis
-   ```
+    # Verify Redis password configuration
+    kubectl get secret iqscaffold-contact-service-secrets -o yaml | grep redis
+    ```
 
 3. **Check Configuration**
 
-   ```bash
-   kubectl describe configmap iqscaffold-contact-service-config -n iqscaffold-dev-env
-   ```
+    ```bash
+    kubectl describe configmap iqscaffold-contact-service-config -n iqscaffold-dev-env
+    ```
 
 4. **Test Health Endpoints**
 
-   ```bash
-   kubectl port-forward deployment/iqscaffold-contact-service 8081:8081 -n iqscaffold-dev-env
-   curl http://localhost:8081/actuator/health
-   ```
+    ```bash
+    kubectl port-forward deployment/iqscaffold-contact-service 8081:8081 -n iqscaffold-dev-env
+    curl http://localhost:8081/actuator/health
+    ```
 
 5. **CRM Integration Issues**
 
-   ```bash
-   # Check CRM configuration
-   kubectl get configmap iqscaffold-contact-service-config -o yaml | grep CRM_
-   ```
+    ```bash
+    # Check CRM configuration
+    kubectl get configmap iqscaffold-contact-service-config -o yaml | grep CRM_
+    ```
 
 6. **Service Integration Issues**
-   ```bash
-   # Test service connectivity
-   kubectl exec -it deployment/iqscaffold-contact-service -n iqscaffold-dev-env -- \
-     curl http://iqscaffold-user-service/actuator/health
-   ```
+    ```bash
+    # Test service connectivity
+    kubectl exec -it deployment/iqscaffold-contact-service -n iqscaffold-dev-env -- \
+      curl http://iqscaffold-user-service/actuator/health
+    ```
 
 ### Rollback
 

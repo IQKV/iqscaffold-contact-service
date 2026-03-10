@@ -128,32 +128,32 @@ This is the contact management hub for the IQ Scaffold CRM platform. It centrali
 
 1. **Start infrastructure services**:
 
-   <details>
-   <summary>Click to expand bash commands</summary>
+    <details>
+    <summary>Click to expand bash commands</summary>
 
-   ```bash
-   docker compose up -d postgres-contact redis-contact rabbitmq-contact
-   ```
+    ```bash
+    docker compose up -d postgres-contact redis-contact rabbitmq-contact
+    ```
 
-   </details>
+    </details>
 
 2. **Run the application**:
 
-   <details>
-   <summary>Click to expand bash commands</summary>
+    <details>
+    <summary>Click to expand bash commands</summary>
 
-   ```bash
-   mvn spring-boot:run -Dspring-boot.run.profiles=local
-   ```
+    ```bash
+    mvn spring-boot:run -Dspring-boot.run.profiles=local
+    ```
 
-   </details>
+    </details>
 
 3. **Access the application**:
-   - API: http://localhost:8080
-   - Swagger UI: http://localhost:8080/swagger-ui.html
-   - API Docs: http://localhost:8080/api-docs
-   - Health Check: http://localhost:8080/actuator/health
-   - Prometheus Metrics: http://localhost:8080/actuator/prometheus
+    - API: http://localhost:8080
+    - Swagger UI: http://localhost:8080/swagger-ui.html
+    - API Docs: http://localhost:8080/api-docs
+    - Health Check: http://localhost:8080/actuator/health
+    - Prometheus Metrics: http://localhost:8080/actuator/prometheus
 
 #### Docker Development
 
@@ -228,12 +228,12 @@ The service uses schema-per-tenant isolation:
 Each tenant has its own schema with:
 
 - `contacts` - Contact information with lead scoring and conversion tracking
-  - Basic info: first name, last name, email, phone, job title
-  - Lead scoring: lead_score field for qualification
-  - Conversion tracking: converted_from_lead_id, converted_at
-  - Company association: company_id reference
-  - Status tracking: ACTIVE, INACTIVE, LEAD, PROSPECT, CUSTOMER, ARCHIVED
-  - Audit fields: created_at, updated_at, created_by, updated_by
+    - Basic info: first name, last name, email, phone, job title
+    - Lead scoring: lead_score field for qualification
+    - Conversion tracking: converted_from_lead_id, converted_at
+    - Company association: company_id reference
+    - Status tracking: ACTIVE, INACTIVE, LEAD, PROSPECT, CUSTOMER, ARCHIVED
+    - Audit fields: created_at, updated_at, created_by, updated_by
 
 ### Development
 
@@ -444,15 +444,15 @@ docker-compose logs -f contact-service
 
 ```json
 {
-  "firstName": "John",
-  "lastName": "Doe",
-  "email": "john.doe@example.com",
-  "phone": "+1234567890",
-  "jobTitle": "Software Engineer",
-  "companyId": 123,
-  "status": "ACTIVE",
-  "leadScore": 85,
-  "convertedFromLeadId": "lead-456"
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1234567890",
+    "jobTitle": "Software Engineer",
+    "companyId": 123,
+    "status": "ACTIVE",
+    "leadScore": 85,
+    "convertedFromLeadId": "lead-456"
 }
 ```
 
@@ -460,19 +460,19 @@ docker-compose logs -f contact-service
 
 ```json
 {
-  "id": 1,
-  "firstName": "John",
-  "lastName": "Doe",
-  "email": "john.doe@example.com",
-  "phone": "+1234567890",
-  "jobTitle": "Software Engineer",
-  "companyId": 123,
-  "status": "ACTIVE",
-  "leadScore": 85,
-  "convertedFromLeadId": "lead-456",
-  "convertedAt": "2026-02-03T10:30:00Z",
-  "createdAt": "2026-02-03T10:30:00Z",
-  "updatedAt": "2026-02-03T10:30:00Z"
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1234567890",
+    "jobTitle": "Software Engineer",
+    "companyId": 123,
+    "status": "ACTIVE",
+    "leadScore": 85,
+    "convertedFromLeadId": "lead-456",
+    "convertedAt": "2026-02-03T10:30:00Z",
+    "createdAt": "2026-02-03T10:30:00Z",
+    "updatedAt": "2026-02-03T10:30:00Z"
 }
 ```
 
@@ -484,28 +484,28 @@ docker-compose logs -f contact-service
 
 ```json
 {
-  "content": [
-    {
-      "id": 1,
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "status": "ACTIVE",
-      "leadScore": 85
-    }
-  ],
-  "pageable": {
-    "pageNumber": 0,
-    "pageSize": 20,
-    "sort": {
-      "sorted": true,
-      "orders": [{ "property": "lastName", "direction": "ASC" }]
-    }
-  },
-  "totalElements": 1,
-  "totalPages": 1,
-  "first": true,
-  "last": true
+    "content": [
+        {
+            "id": 1,
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john.doe@example.com",
+            "status": "ACTIVE",
+            "leadScore": 85
+        }
+    ],
+    "pageable": {
+        "pageNumber": 0,
+        "pageSize": 20,
+        "sort": {
+            "sorted": true,
+            "orders": [{ "property": "lastName", "direction": "ASC" }]
+        }
+    },
+    "totalElements": 1,
+    "totalPages": 1,
+    "first": true,
+    "last": true
 }
 ```
 
@@ -519,20 +519,20 @@ docker-compose logs -f contact-service
 
 ```json
 {
-  "contacts": [
-    {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john.doe@example.com",
-      "status": "ACTIVE"
-    },
-    {
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "email": "jane.smith@example.com",
-      "status": "PROSPECT"
-    }
-  ]
+    "contacts": [
+        {
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john.doe@example.com",
+            "status": "ACTIVE"
+        },
+        {
+            "firstName": "Jane",
+            "lastName": "Smith",
+            "email": "jane.smith@example.com",
+            "status": "PROSPECT"
+        }
+    ]
 }
 ```
 
@@ -540,36 +540,36 @@ docker-compose logs -f contact-service
 
 ```json
 {
-  "successCount": 2,
-  "failureCount": 0,
-  "results": [
-    {
-      "contactId": 1,
-      "email": "john.doe@example.com",
-      "success": true,
-      "message": "Contact created successfully",
-      "contact": {
-        "id": 1,
-        "firstName": "John",
-        "lastName": "Doe",
-        "email": "john.doe@example.com",
-        "status": "ACTIVE"
-      }
-    },
-    {
-      "contactId": 2,
-      "email": "jane.smith@example.com",
-      "success": true,
-      "message": "Contact created successfully",
-      "contact": {
-        "id": 2,
-        "firstName": "Jane",
-        "lastName": "Smith",
-        "email": "jane.smith@example.com",
-        "status": "PROSPECT"
-      }
-    }
-  ]
+    "successCount": 2,
+    "failureCount": 0,
+    "results": [
+        {
+            "contactId": 1,
+            "email": "john.doe@example.com",
+            "success": true,
+            "message": "Contact created successfully",
+            "contact": {
+                "id": 1,
+                "firstName": "John",
+                "lastName": "Doe",
+                "email": "john.doe@example.com",
+                "status": "ACTIVE"
+            }
+        },
+        {
+            "contactId": 2,
+            "email": "jane.smith@example.com",
+            "success": true,
+            "message": "Contact created successfully",
+            "contact": {
+                "id": 2,
+                "firstName": "Jane",
+                "lastName": "Smith",
+                "email": "jane.smith@example.com",
+                "status": "PROSPECT"
+            }
+        }
+    ]
 }
 ```
 
@@ -581,8 +581,8 @@ docker-compose logs -f contact-service
 
 ```json
 {
-  "contactIds": [1, 2, 3],
-  "status": "CUSTOMER"
+    "contactIds": [1, 2, 3],
+    "status": "CUSTOMER"
 }
 ```
 
@@ -594,11 +594,11 @@ docker-compose logs -f contact-service
 
 ```json
 {
-  "updates": [
-    { "contactId": 1, "score": 85 },
-    { "contactId": 2, "score": 90 },
-    { "contactId": 3, "score": 75 }
-  ]
+    "updates": [
+        { "contactId": 1, "score": 85 },
+        { "contactId": 2, "score": 90 },
+        { "contactId": 3, "score": 75 }
+    ]
 }
 ```
 
@@ -610,19 +610,19 @@ Published to RabbitMQ exchange `crm.events` with routing key `contact.created`:
 
 ```json
 {
-  "eventId": "550e8400-e29b-41d4-a716-446655440000",
-  "eventType": "contact.created",
-  "timestamp": "2026-02-03T10:30:00Z",
-  "tenantId": "tenant-123",
-  "userId": "user-456",
-  "contactId": "1",
-  "metadata": {
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "john.doe@example.com",
-    "status": "ACTIVE",
-    "convertedFromLeadId": "lead-789"
-  }
+    "eventId": "550e8400-e29b-41d4-a716-446655440000",
+    "eventType": "contact.created",
+    "timestamp": "2026-02-03T10:30:00Z",
+    "tenantId": "tenant-123",
+    "userId": "user-456",
+    "contactId": "1",
+    "metadata": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@example.com",
+        "status": "ACTIVE",
+        "convertedFromLeadId": "lead-789"
+    }
 }
 ```
 
@@ -736,11 +736,11 @@ Contact Service validates JWT tokens and extracts tenant context:
 
 ```yaml
 spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: http://iqscaffold-user-service:8080/api/v1/auth/.well-known/jwks.json
+    security:
+        oauth2:
+            resourceserver:
+                jwt:
+                    jwk-set-uri: http://iqscaffold-user-service:8080/api/v1/auth/.well-known/jwks.json
 ```
 
 Extract user and tenant context from JWT:
