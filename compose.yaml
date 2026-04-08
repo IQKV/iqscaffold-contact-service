@@ -29,3 +29,7 @@ volumes:
     name: iqscaffold_contact_redis_data_dev
   rabbitmq_contact_data:
     name: iqscaffold_contact_rabbitmq_data_dev
+  contact_logs:
+    name: iqscaffold_contact_logs_dev
+  contact_tmp:
+    name: iqscaffold_contact_tmp_dev

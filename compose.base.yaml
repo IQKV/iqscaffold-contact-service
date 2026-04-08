@@ -92,7 +92,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      target: builder
+      target: runtime
     image: iqscaffold/iqscaffold-contact-service:dev
     container_name: iqscaffold-contact-service-dev
     environment:
@@ -147,7 +147,7 @@ services:
     networks:
       - contact-service-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://iqscaffold-contact-service:8080/actuator/health/readiness"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health/readiness"]
       interval: 30s
       timeout: 10s
       retries: 3

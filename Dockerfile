@@ -5,18 +5,15 @@ FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
 
 WORKDIR /app
 
-# Copy parent pom and service pom
+# Copy pom and download dependencies
 COPY pom.xml ./
-COPY iqscaffold-contact-service/pom.xml ./iqscaffold-contact-service/
-
-# Download dependencies
-RUN mvn dependency:go-offline -pl iqscaffold-contact-service
+RUN mvn dependency:go-offline -Dcheckstyle.skip=true
 
 # Copy source code
-COPY iqscaffold-contact-service/src ./iqscaffold-contact-service/src
+COPY src ./src
 
 # Build the application
-RUN mvn clean package -pl iqscaffold-contact-service -DskipTests
+RUN mvn clean package -DskipTests -Dcheckstyle.skip=true
 
 # Runtime stage
 FROM eclipse-temurin:21-jre-alpine AS runtime
@@ -32,7 +29,7 @@ RUN addgroup -g 1001 -S appgroup && \
 WORKDIR /app
 
 # Copy the built jar
-COPY --from=builder /app/iqscaffold-contact-service/target/iqscaffold-contact-service-*.jar app.jar
+COPY --from=builder /app/target/iqscaffold-contact-service-*.jar app.jar
 
 # Create logs directory
 RUN mkdir -p /app/logs && \
