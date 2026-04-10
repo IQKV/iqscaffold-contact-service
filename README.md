@@ -183,13 +183,13 @@ Key environment variables for configuration:
 # Database
 IQSCAFFOLD_DATABASE_URL=jdbc:postgresql://localhost:5434/iqscaffold_contact_local
 IQSCAFFOLD_DATABASE_USERNAME=iqscaffold_contact
-IQSCAFFOLD_DATABASE_PASSWORD=iqscaffold_password
+IQSCAFFOLD_DATABASE_PASSWORD=iqkv_password
 
 # RabbitMQ
 IQSCAFFOLD_MESSAGING_RABBITMQ_HOST=localhost
 IQSCAFFOLD_MESSAGING_RABBITMQ_PORT=5673
 IQSCAFFOLD_MESSAGING_RABBITMQ_USERNAME=iqscaffold
-IQSCAFFOLD_MESSAGING_RABBITMQ_PASSWORD=iqscaffold_password
+IQSCAFFOLD_MESSAGING_RABBITMQ_PASSWORD=iqkv_password
 
 # Security
 USER_SERVICE_URL=http://iqscaffold-user-service:8080
