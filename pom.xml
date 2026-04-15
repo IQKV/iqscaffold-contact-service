@@ -14,7 +14,7 @@
     <artifactId>iqscaffold-contact-service</artifactId>
     <packaging>jar</packaging>
 
-    <name>IQ  Key Value Contact Service</name>
+    <name>IQ Key Value Contact Service</name>
     <description>CRM contact management service</description>
 
     <properties>
