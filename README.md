@@ -1,4 +1,4 @@
-# 👥 IQ Scaffold Contact Service
+# 👥 IQ  Key Value Contact Service
 
 > Comprehensive CRM contact management microservice providing multi-tenant contact lifecycle management, lead conversion tracking, bulk operations, and intelligent contact scoring with event-driven integration.
 
@@ -31,7 +31,7 @@ CRM Contact management service that handles:
 
 ## Overview
 
-This is the contact management hub for the IQ Scaffold CRM platform. It centralizes contact data management, enabling sales teams to maintain comprehensive customer records, track lead conversions, and manage contact relationships efficiently while providing event-driven integration with other CRM services.
+This is the contact management hub for the IQ  Key Value CRM platform. It centralizes contact data management, enabling sales teams to maintain comprehensive customer records, track lead conversions, and manage contact relationships efficiently while providing event-driven integration with other CRM services.
 
 ## What It Demonstrates
 

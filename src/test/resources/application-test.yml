@@ -37,7 +37,7 @@ logging:
     org.hibernate.SQL: DEBUG
     com.iqscaffold.contactservice: DEBUG
 
-# Test-specific IQ Scaffold properties
+# Test-specific IQ  Key Value properties
 iqscaffold:
   tenant-id-header: X-Tenant-ID
   user-service-url: http://iqscaffold-user-service

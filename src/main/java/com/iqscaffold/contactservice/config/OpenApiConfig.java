@@ -25,10 +25,10 @@ public class OpenApiConfig {
   public OpenAPI contactServiceOpenAPI() {
     return new OpenAPI()
         .info(new Info()
-            .title("IQ Scaffold Contact Service API")
+            .title("IQ  Key Value Contact Service API")
             .version("1.0.0")
             .description("""
-                CRM contact and company management service for IQ Scaffold platform.
+                CRM contact and company management service for IQ  Key Value platform.
                 
                 ## Features
                 - Contact CRUD operations
@@ -47,7 +47,7 @@ public class OpenApiConfig {
                 All errors follow RFC 7807 Problem Details format with correlation IDs for tracing.
                 """)
             .contact(new Contact()
-                .name("IQ Scaffold Platform Team")
+                .name("IQ  Key Value Platform Team")
                 .email("api-support@iqscaffold.com")
                 .url("https://docs.iqscaffold.com"))
             .license(new License()

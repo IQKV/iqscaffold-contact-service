@@ -4,7 +4,7 @@
       "name": "iqscaffold",
       "type": "com.iqscaffold.contactservice.config.IqScaffoldProperties",
       "sourceType": "com.iqscaffold.contactservice.config.IqScaffoldProperties",
-      "description": "IQ Scaffold custom configuration properties for the Contact Service."
+      "description": "IQ  Key Value custom configuration properties for the Contact Service."
     },
     {
       "name": "iqscaffold.i18n",

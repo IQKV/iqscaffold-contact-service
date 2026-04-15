@@ -1,8 +1,8 @@
-# 📜 IQ Scaffold Contact Service - Deployment Guide
+# 📜 IQ  Key Value Contact Service - Deployment Guide
 
 ## Overview
 
-The IQ Scaffold Contact Service is deployed using Helm charts and automated CI/CD pipelines. The service provides comprehensive contact management, CRM functionality, activity tracking, and lead conversion capabilities with multi-tenancy support.
+The IQ  Key Value Contact Service is deployed using Helm charts and automated CI/CD pipelines. The service provides comprehensive contact management, CRM functionality, activity tracking, and lead conversion capabilities with multi-tenancy support.
 
 ## Prerequisites
 
